@@ -77,7 +77,7 @@ function App() {
         Submit
       </Button>
       <div>
-      <h1>Foamtree Visualization</h1>
+      <h1 style={{textAlign: 'center'}}>Foamtree Visualization</h1>
       <FoamTreeComponent data={data} />
     </div>
     </Box>

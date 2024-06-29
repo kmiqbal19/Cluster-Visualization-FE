@@ -21,7 +21,7 @@ const FoamTreeComponent = ({ data }) => {
     }
   }, [data]);
 
-  return <div ref={foamtreeRef} style={{ width: '90vw', height: '700px', border: '1px solid black' }}></div>;
+  return <div ref={foamtreeRef} style={{ width: '90vw', height: '700px', border: '2px solid light-gray', borderRadius: '10px' }}></div>;
 };
 
 export default FoamTreeComponent;
