@@ -6,9 +6,11 @@ import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import { toast } from "sonner";
+import FoamTreeComponent from "./components/FoamTree";
 function App() {
   const [keyword, setKeyword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState([])
 
   const handleClick = (_) => {
     setLoading(true);
@@ -16,7 +18,8 @@ function App() {
     axios
       .post("http://127.0.0.1:5000/", { user_input: keyword })
       .then((res) => {
-        console.log(res.data, "res");
+        // console.log(res.data, "res");
+        setData(res.data);
         setLoading(false);
       })
       .catch((err) => toast.error("Something went wrong!"))
@@ -25,7 +28,6 @@ function App() {
       });
   };
 
-  console.log(loading, "loading");
   return (
     <Box
       sx={{
@@ -53,7 +55,6 @@ function App() {
         required
         id="outlined-required"
         label="Search"
-        defaultValue={keyword}
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
         InputProps={{
@@ -75,6 +76,10 @@ function App() {
       >
         Submit
       </Button>
+      <div>
+      <h1>Foamtree Visualization</h1>
+      <FoamTreeComponent data={data} />
+    </div>
     </Box>
   );
 }
