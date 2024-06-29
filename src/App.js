@@ -3,12 +3,14 @@ import "./App.css";
 import { Box, TextField, Button, Typography } from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
+import axios from 'axios'
 
 function App() {
   const [keyword, setKeyword] = React.useState("");
-  const handleClick = (e) => {
-    console.log(e)
+  const handleClick = async (_) => {
     // call here the api from backend
+   const res = await axios.post('http://127.0.0.1:5000/', {user_input: keyword});
+   console.log(res.data, 'response')
   }
   return (
     <Box
