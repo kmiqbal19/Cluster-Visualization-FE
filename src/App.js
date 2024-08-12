@@ -7,14 +7,16 @@ import axios from "axios";
 import CircularProgress from "@mui/material/CircularProgress";
 import { toast } from "sonner";
 import FoamTreeComponent from "./components/FoamTree";
+import pubmedLogo from "./assets/images/pubMed.png";
+import bgImg from "./assets/images/bg.jpg";
 function App() {
   const [keyword, setKeyword] = React.useState("");
   const [loading, setLoading] = React.useState(false);
-  const [data, setData] = React.useState([])
+  const [data, setData] = React.useState([]);
 
   const handleClick = (_) => {
     setLoading(true);
-    setKeyword("")
+    setKeyword("");
     axios
       .post("http://127.0.0.1:5000/", { user_input: keyword })
       .then((res) => {
@@ -37,20 +39,37 @@ function App() {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
+        backgroundImage: `url(${bgImg})`,
+        backgroundSize: "cover",
+        backgroundAttachment: "fixed",
+        backgroundRepeat: 'no-repeat'
       }}
     >
       <Typography
-        variant="h6"
+        variant="h5"
         sx={{
           marginBottom: "1rem",
+          display: "flex",
+          alignItems: "center",
+          fontWeight: 800,
+         
         }}
       >
-        Search for PubMed documents
+        Search for{" "}
+        <img
+          src={pubmedLogo}
+          alt="pubmed-logo"
+          width="100px"
+          height={"50px"}
+          style={{ objectFit: "contain", margin: "1rem",  }}
+        />{" "}
+        documents
       </Typography>
-      {loading && <CircularProgress sx={{margin: '0.5rem'}} />}
-      <TextField
+      {loading && <CircularProgress sx={{ margin: "0.5rem" }} />}
+      {loading && <p>Loading tree ...</p>}
+      {!loading && <TextField
         sx={{
-          width: "calc(300px + 5vw)",
+          width: "500px",
         }}
         required
         id="outlined-required"
@@ -65,7 +84,7 @@ function App() {
           ),
         }}
         placeholder="Search by keyword e.g. artificial intelligence..."
-      />
+      />}
       <Button
         sx={{
           marginTop: "1rem",
@@ -77,9 +96,9 @@ function App() {
         Submit
       </Button>
       <div>
-      <h1 style={{textAlign: 'center'}}>Foamtree Visualization</h1>
-      <FoamTreeComponent data={data} />
-    </div>
+        {data.length > 0 && <h1 style={{ textAlign: "center", marginTop: '1rem' }}>⬇️ Foamtree Visualization ⬇️</h1>}
+        <FoamTreeComponent data={data} />
+      </div>
     </Box>
   );
 }
